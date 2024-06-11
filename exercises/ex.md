@@ -36,18 +36,21 @@ All done.
 
 ## Chapter 5
 - [x] `1`. As written, getint treats a + or - not followed by a digit as a valid representation of zero. Fix it to push such a character back on the input
-- [ ] `2`. Write getfloat, the floating-point analog of getint. What type does getfloat return as its function value?
-- [ ] `3`. Write a pointer version of the function strcat that we showed in Chapter 2: strcat(s,t) copies the string t to the end of s. 
-- [ ] `4`. Write the function strend(s,t), which returns 1 if the string t occurs at the end of the string s, and zero otherwise. 
+- [x] `2`. Write getfloat, the floating-point analog of getint. What type does getfloat return as its function value?
+- [x] `3`. Write a pointer version of the function strcat that we showed in Chapter 2: strcat(s,t) copies the string t to the end of s. 
+- [x] `4`. Write the function strend(s,t), which returns 1 if the string t occurs at the end of the string s, and zero otherwise. 
 ### Appendix B
 - [ ] `5`. Write versions of the library functions strncpy, strncat, and strncmp, which operate on at most the first n characters of their argument strings. For example, strncpy(s,t,n) copies at most n characters of t to s. Full descriptions are in Appendix B.
 - [ ] `6`. Rewrite appropriate programs from earlier chapters and exercises with pointers instead of array indexing. Good possibilities include getline (Chapters 1 and 4), atoi, itoa, and their variants (Chapters 2, 3, and 4), reverse (Chapter 3), and strindex and getop (Chapter 4).
 - [ ] `7`. Rewrite readlines to store lines in an array supplied by main, rather than calling alloc to maintain storage. How much faster is the program?
-- [ ] `8`. There is no error checking in day_of_year or month_day. Remedy this defect.
-- [ ] `9`. Rewrite the routines day_of_year and month_day with pointers instead of indexing.
+
+- [x] `8`. There is no error checking in day_of_year or month_day. Remedy this defect.
+- [x] `9`. Rewrite the routines day_of_year and month_day with pointers instead of indexing.
+
 - [ ] `10`. Write the program expr, which evaluates a reverse Polish expression from the command line, where each operator or operand is a separate argument. For example, expr 2 3 4 + 0 evaluated 2 * (3+4).
 - [ ] `11`. Modify the program entab and detab (written as exercises in Chapter 1) to accept a list of tab stops as arguments. Use the default tab settings if there are no arguments.
 - [ ] `12`. Extend entab and detab to accept the shorthand `entab -m +n` to mean tab stops every n columns, starting at column m. Choose convenient (for the user) default behavior.
+
 - [ ] `13`. Write the program tail, which prints the last n lines of its input. By default, n is set to 10, let us say, but it can be changed by an optional argument so that   tail -n  prints the last n lines. The program should behave rationally no matter how unreasonable the input or the value of n. Write the program so it makes the best use of available storage; lines should be stored as in the sorting program of Section 5.6, not in a two-dimensional array of fixed size. 
 - [ ] `14`. Modify the sort program to handle a -r flag, which indicates sorting in reverse (decreasing) order. Be sure that -r works with -n. 
 - [ ] `15`. Add the option -f to fold upper and lower case together, so that case distinctions are not made during sorting; for example, a and A compare equal. 
@@ -66,23 +69,28 @@ All done.
 - [ ] `6`. Implement a simple version of the #define processor (i.e., no arguments) suitable for use with C programs, based on the routines of this section. You may also find getch and ungetch helpful. 
 
 ## Chapter 7
-- [ ] `1`. Write a program that converts upper case to lower or lower case to upper, depending on the name it is invoked with, as found in `argv[0]`. 
-- [ ] `2`. Write a program that will print arbitrary input in a sensible way. As a minimum, it should print non-graphic characters in octal or hexadecimal according to local custom, and break long text lines. 
-- [ ] `3`. Revise minprintf to handle more of the other facilities of printf.
-- [ ] `4`. Write a private version of scanf analogous to minprintf from the previous section. 
-- [ ] `5`. Rewrite the postfix calculator of Chapter 4 to use scanf and/or sscanf to do the input and number conversion. 
-- [ ] `6`. Write a program to compare two files, printing the first line where they differ. 
-- [ ] `7`. Modify the pattern finding program of Chapter 5 to take its input from a set of named files or, if no files are named as arguments, from the standard input. Should the file name be printed when a matching line is found? 
-- [ ] `8`. Write a program to print a set of files, starting each new one on a new page, with a title and a running page count for each file. 
-- [ ] `9`. Functions like isupper can be implemented to save space or to save time. Explore both possibilities.
+- [x] `1`. Write a program that converts upper case to lower or lower case to upper, depending on the name it is invoked with, as found in `argv[0]`. 
+- [-] `2`. Write a program that will print arbitrary input in a sensible way. As a minimum, it should print non-graphic characters in octal or hexadecimal according to local custom, and break long text lines. 
+- [x] `3`. Revise minprintf to handle more of the other facilities of printf.
+- [x] `4`. Write a private version of scanf analogous to minprintf from the previous section. 
+- [x] `5`. Rewrite the postfix calculator of Chapter 4 to use scanf and/or sscanf to do the input and number conversion. 
+- [x] `6`. Write a program to compare two files, printing the first line where they differ. 
+- [-] `7`. Modify the pattern finding program of Chapter 5 to take its input from a set of named files or, if no files are named as arguments, from the standard input. Should the file name be printed when a matching line is found? 
+- [-] `8`. Write a program to print a set of files, starting each new one on a new page, with a title and a running page count for each file. 
+- [x] `9`. Functions like isupper can be implemented to save space or to save time. Explore both possibilities.
+
+
+
+
+
 
 ## Chapter 8
-- [ ] `1`. Rewrite the program cat from Chapter 7 using read, write, open, and close instead of their standard library equivalents. Perform experiments to determine the relative speeds of the two versions. 
+- [-] `1`. Rewrite the program cat from Chapter 7 using read, write, open, and close instead of their standard library equivalents. Perform experiments to determine the relative speeds of the two versions. 
 - [ ] `2`. Rewrite fopen and _fillbuf with fields instead of explicit bit operations. Compare code size and execution speed. 
 - [ ] `3`. Design and write _flushbuf, fflush, and fclose. 
 - [ ] `4`. The standard library function `int fseek(FILE *fp, long offset, int origin)` is identical to lseek except that fp is a file pointer instead of a file descriptor and return value is an int status, not a position. Write fseek. Make sure that your fseek coordinates properly with the buffering done for the other functions of the library. 
 - [ ] `5`. Modify the fsize program to print the other information contained in the inode entry.
-- [ ] `6`. The standard library function calloc(n,size) returns a pointer to n objects of size size, with the storage initialized to zero. Write calloc, by calling malloc or by modifying it. 
+- [-] `6`. The standard library function calloc(n,size) returns a pointer to n objects of size size, with the storage initialized to zero. Write calloc, by calling malloc or by modifying it. 
 - [ ] `7`. malloc accepts a size request without checking its plausibility; free believes that the block it is asked to free contains a valid size field. Improve these routines so they make more pains with error checking. 
 - [ ] `8`. Write a routine bfree(p,n) that will free any arbitrary block p of n characters into the free list maintained by malloc and free. By using bfree, a user can add a static or external array to the free list at any time. 
 
