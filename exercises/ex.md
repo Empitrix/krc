@@ -18,24 +18,24 @@ All done.
 - [x] `6`. Write a version of itoa that accepts three arguments instead of two. The third argument is a minimum field width; the converted number must be padded with blanks on the left if necessary to make it wide enough.
 
 ## Chapter 4
-- [ ] `1`. Write the function strindex(s,t) which returns the position of the rightmost occurrence of t in s, or -1 if there is none.
-- [ ] `2`. Extend atof to handle scientific notation of the form  123.45e-6  where a floating-point number may be followed by e or E and an optionally signed exponent.
-- [ ] `3`. Given the basic framework, it's straightforward to extend the calculator. Add the modulus (%) operator and provisions for negative numbers. 
-- [ ] `4`. Add the commands to print the top elements of the stack without popping, to duplicate it, and to swap the top two elements. Add a command to clear the stack. 
-- [ ] `5`. Add access to library functions like sin, exp, and pow. See <math.h> in
+- [x] `1`. Write the function strindex(s,t) which returns the position of the rightmost occurrence of t in s, or -1 if there is none.
+- [x] `2`. Extend atof to handle scientific notation of the form  123.45e-6  where a floating-point number may be followed by e or E and an optionally signed exponent.
+- [-] `3`. Given the basic framework, it's straightforward to extend the calculator. Add the modulus (%) operator and provisions for negative numbers. 
+- [-] `4`. Add the commands to print the top elements of the stack without popping, to duplicate it, and to swap the top two elements. Add a command to clear the stack. 
+- [-] `5`. Add access to library functions like sin, exp, and pow. from <math.h>
 ### Appendix B
-- [ ] `6`. Add commands for handling variables. (It's easy to provide twenty-six variables with single-letter names.) Add a variable for the most recently printed value. 
-- [ ] `7`. Write a routine ungets(s) that will push back an entire string onto the input. Should ungets know about buf and bufp, or should it just use ungetch? 
-- [ ] `8`. Suppose that there will never be more than one character of pushback. Modify getch and ungetch accordingly. 
-- [ ] `9`. Our getch and ungetch do not handle a pushed-back EOF correctly. Decide what their properties ought to be if an EOF is pushed back, then implement your design. 
-- [ ] `10`. An alternate organization uses getline to read an entire input line; this makes getch and ungetch unnecessary. Revise the calculator to use this approach. 
-- [ ] `11`. Modify getop so that it doesn't need to use ungetch. Hint: use an internal static variable
-- [ ] `12`. Adapt the ideas of printd to write a recursive version of itoa; that is, convert an integer into a string by calling a recursive routine.
-- [ ] `13`. Write a recursive version of the function reverse(s), which reverses the string s in place. 
-- [ ] `14`. Define a macro swap(t,x,y) that interchanges two arguments of type t. (Block structure will help.)
+- [x] `6`. Add commands for handling variables. (It's easy to provide twenty-six variables with single-letter names.) Add a variable for the most recently printed value. 
+- [x] `7`. Write a routine ungets(s) that will push back an entire string onto the input. Should ungets know about buf and bufp, or should it just use ungetch? 
+- [x] `8`. Suppose that there will never be more than one character of pushback. Modify getch and ungetch accordingly. 
+- [x] `9`. Our getch and ungetch do not handle a pushed-back EOF correctly. Decide what their properties ought to be if an EOF is pushed back, then implement your design. 
+- [-] `10`. An alternate organization uses getline to read an entire input line; this makes getch and ungetch unnecessary. Revise the calculator to use this approach. 
+- [-] `11`. Modify getop so that it doesn't need to use ungetch. Hint: use an internal static variable.
+- [x] `12`. Adapt the ideas of printd to write a recursive version of itoa; that is, convert an integer into a string by calling a recursive routine.
+- [x] `13`. Write a recursive version of the function reverse(s), which reverses the string s in place. 
+- [x] `14`. Define a macro swap(t,x,y) that interchanges two arguments of type t. (Block structure will help.)
 
 ## Chapter 5
-- [ ] `1`. As written, getint treats a + or - not followed by a digit as a valid representation of zero. Fix it to push such a character back on the input
+- [x] `1`. As written, getint treats a + or - not followed by a digit as a valid representation of zero. Fix it to push such a character back on the input
 - [ ] `2`. Write getfloat, the floating-point analog of getint. What type does getfloat return as its function value?
 - [ ] `3`. Write a pointer version of the function strcat that we showed in Chapter 2: strcat(s,t) copies the string t to the end of s. 
 - [ ] `4`. Write the function strend(s,t), which returns 1 if the string t occurs at the end of the string s, and zero otherwise. 
