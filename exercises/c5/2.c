@@ -6,6 +6,7 @@ What type does getfloat return as its function value?
 */
 
 #define BUFSIZE 1000
+#define SIZE 1000
 
 int getch(void);
 void ungetch(int c);
@@ -14,6 +15,13 @@ int getfloat(float *pn);
 
 
 int main(void){
+	int n;
+	float array[SIZE];
+
+	for (n = 0; n < SIZE && getfloat(&array[n]) != EOF; n++);
+	for (; n >= 0; n--)
+			printf("%f", array[n]);
+
 	return 0;
 }
 
@@ -85,6 +93,8 @@ int getfloat(float *pn) {
 
 	for (*pn = 0.0; isdigit(c); c = getch())
 		*pn = 10.0 * *pn + (c - '0');
+
+	// [S]float new part 
 	if (c == '.')
 		c = getch();
 
@@ -92,6 +102,7 @@ int getfloat(float *pn) {
 		*pn = 10.0 * *pn + (c - '0');	/* fractional part */
 		power *= 10.0;
 	}
+	// [E]float new part 
 
 	*pn *= sign / power;
 

@@ -94,10 +94,10 @@ int _getint(int *pn) {
 		return 0;
 	// [E]new part   -----------
 
-
-	// original version
+// original version
 	// for (*pn = 0; isdigit(c), c = getch())
-	for (*pn = 0; isdigit(c), c = getch(); )
+	// for (*pn = 0; isdigit(c), c = getch(); )
+	for (*pn = 0; isdigit(c = getch()); )
 		*pn = 10 * *pn + (c - '0');
 
 	*pn *= sign;
