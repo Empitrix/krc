@@ -1,10 +1,9 @@
-/**
- *
- * Write a program exprcmd, which evaluates a reverse polish expression, from
- * the command line,where each operator or operand is a seperate argument. For
- * eg: expr  2 3 4 + * evaluates to 2 * ( 3 + 4)
- *
- **/
+/*
+Write the program expr, which evaluates a reverse Polish
+expression from the command line, where each operator or
+operand is a separate argument. For example, expr 2 3 4 + 0
+evaluated 2 * (3+4).
+*/
 
 #include <ctype.h>
 #include <stdio.h>
@@ -22,15 +21,10 @@ char buf[BUFSIZE];  /* buffer for ungetch */
 int bufp = 0;	   /* next free position in buf */
 
 int getop(char[]);
-
 void ungets(char[]);
-
 void push(double);
-
 double pop(void);
-
 int getch(void);
-
 void ungetch(int);
 
 /* reverse polish calculator, uses command line */
@@ -139,3 +133,4 @@ void ungets(char s[]) {
 	while (len > 0)
 		ungetch(s[--len]);
 }
+

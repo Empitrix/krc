@@ -34,17 +34,20 @@ int main(int argc, char *argv[]){
 
 	if(argc == 1)
 		n = DEFLINES;
-	else if(argc == 2 && (*++argv)[0] == '-')
+	else if(argc == 2 && (*++argv)[0] == '-') // get -n flag
 		n = atoi(argv[0] + 1);
 	else
 		error("Usage: tail [-n]");
 
+	// not a correct amount of n from flag
 	if(n < 1 || n > LINES)
 		n = LINES;
 
+	// clear lineptr
 	for(i = 0; i < LINES; i++)
 		lineptr[i] = NULL;
 
+	// get enough size
 	if((p = buf = malloc(LINES * MAXLEN)) == NULL)
 		error("tail: cannot allocate buf");
 
@@ -68,7 +71,7 @@ int main(int argc, char *argv[]){
 	}
 
 
-
+	// correct amount of n (not overflow)
 	if(n > nlines)
 		n = nlines;
 

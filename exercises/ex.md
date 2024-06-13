@@ -1,10 +1,10 @@
 # Exercises
 ## Chapter 1
-- [ ] `20`. Write a program `detab` that replaces tabs in the input with the proper number of blanks to space to the next tab stop. Assume a fixed set of tab stops, say every n columns. Should n be a variable or a symbolic parameter?
-- [ ] `21`. Write a program `entab` that replaces strings of blanks by the minimum number of tabs and blanks to achieve the same spacing. Use the same tab stops as for `detab`. When either a tab or a single blank would suffice to reach a tab stop, which should be given preference?
-- [ ] `22`. Write a program to `fold` long input lines into two or more shorter lines after the last non-blank character that occurs before the n-th column of input. Make sure your program does something intelligent with very long lines, and if there are no blanks or tabs before the specified column.
+- [x] `20`. Write a program `detab` that replaces tabs in the input with the proper number of blanks to space to the next tab stop. Assume a fixed set of tab stops, say every n columns. Should n be a variable or a symbolic parameter?
+- [x] `21`. Write a program `entab` that replaces strings of blanks by the minimum number of tabs and blanks to achieve the same spacing. Use the same tab stops as for `detab`. When either a tab or a single blank would suffice to reach a tab stop, which should be given preference?
+- [x] `22`. Write a program to `fold` long input lines into two or more shorter lines after the last non-blank character that occurs before the n-th column of input. Make sure your program does something intelligent with very long lines, and if there are no blanks or tabs before the specified column.
 - [x] `23`. Write a program to remove all comments from a C program. Don't forget to handle quoted strings and character constants properly. C comments don't nest. 
-- [ ] `24`. Write a program to check a C program for rudimentary syntax errors like unmatched parentheses, brackets and braces. Don't forget about quotes, both single and double, escape sequences, and comments. (This program is hard if you do it in full generality.) 
+- [x] `24`. Write a program to check a C program for rudimentary syntax errors like unmatched parentheses, brackets and braces. Don't forget about quotes, both single and double, escape sequences, and comments. (This program is hard if you do it in full generality.) 
 
 ## Chapter 2
 All done.
@@ -40,33 +40,33 @@ All done.
 - [x] `3`. Write a pointer version of the function strcat that we showed in Chapter 2: strcat(s,t) copies the string t to the end of s. 
 - [x] `4`. Write the function strend(s,t), which returns 1 if the string t occurs at the end of the string s, and zero otherwise. 
 ### Appendix B
-- [ ] `5`. Write versions of the library functions strncpy, strncat, and strncmp, which operate on at most the first n characters of their argument strings. For example, strncpy(s,t,n) copies at most n characters of t to s. Full descriptions are in Appendix B.
-- [ ] `6`. Rewrite appropriate programs from earlier chapters and exercises with pointers instead of array indexing. Good possibilities include getline (Chapters 1 and 4), atoi, itoa, and their variants (Chapters 2, 3, and 4), reverse (Chapter 3), and strindex and getop (Chapter 4).
-- [ ] `7`. Rewrite readlines to store lines in an array supplied by main, rather than calling alloc to maintain storage. How much faster is the program?
-
+- [x] `5`. Write versions of the library functions strncpy, strncat, and strncmp, which operate on at most the first n characters of their argument strings. For example, strncpy(s,t,n) copies at most n characters of t to s. Full descriptions are in Appendix B.
+- [x] `6`. Rewrite appropriate programs from earlier chapters and exercises with pointers instead of array indexing. Good possibilities include getline (Chapters 1 and 4), atoi, itoa, and their variants (Chapters 2, 3, and 4), reverse (Chapter 3), and strindex and getop (Chapter 4).
+- [x] `7`. Rewrite readlines to store lines in an array supplied by main, rather than calling alloc to maintain storage. How much faster is the program?
 - [x] `8`. There is no error checking in day_of_year or month_day. Remedy this defect.
 - [x] `9`. Rewrite the routines day_of_year and month_day with pointers instead of indexing.
+- [x] `10`. Write the program expr, which evaluates a reverse Polish expression from the command line, where each operator or operand is a separate argument. For example, expr 2 3 4 + 0 evaluated 2 * (3+4).
+- [x] `11`. Modify the program entab and detab (written as exercises in Chapter 1) to accept a list of tab stops as arguments. Use the default tab settings if there are no arguments.
+- [x] `12`. Extend entab and detab to accept the shorthand `entab -m +n` to mean tab stops every n columns, starting at column m. Choose convenient (for the user) default behavior.
+- [x] `13`. Write the program tail, which prints the last n lines of its input. By default, n is set to 10, let us say, but it can be changed by an optional argument so that   tail -n  prints the last n lines. The program should behave rationally no matter how unreasonable the input or the value of n. Write the program so it makes the best use of available storage; lines should be stored as in the sorting program of Section 5.6, not in a two-dimensional array of fixed size. 
 
-- [ ] `10`. Write the program expr, which evaluates a reverse Polish expression from the command line, where each operator or operand is a separate argument. For example, expr 2 3 4 + 0 evaluated 2 * (3+4).
-- [ ] `11`. Modify the program entab and detab (written as exercises in Chapter 1) to accept a list of tab stops as arguments. Use the default tab settings if there are no arguments.
-- [ ] `12`. Extend entab and detab to accept the shorthand `entab -m +n` to mean tab stops every n columns, starting at column m. Choose convenient (for the user) default behavior.
+- [x] `14`. - Modify the sort program to handle a -r flag, which indicates sorting in reverse (decreasing) order. Be sure that -r works with -n. 
+- [x] `15`. - Add the option -f to fold upper and lower case together, so that case distinctions are not made during sorting; for example, a and A compare equal. 
+- [x] `16`. - Add the -d (``directory order'') option, which makes comparisons only on letters, numbers and blanks. Make sure it works in conjunction with -f. 
+- [x] `17`. - Add a field-searching capability, so sorting may bee done on fields within lines, each field sorted according to an independent set of options. (The index for this book was sorted with -df for the index category and -n for the page numbers.) 
 
-- [ ] `13`. Write the program tail, which prints the last n lines of its input. By default, n is set to 10, let us say, but it can be changed by an optional argument so that   tail -n  prints the last n lines. The program should behave rationally no matter how unreasonable the input or the value of n. Write the program so it makes the best use of available storage; lines should be stored as in the sorting program of Section 5.6, not in a two-dimensional array of fixed size. 
-- [ ] `14`. Modify the sort program to handle a -r flag, which indicates sorting in reverse (decreasing) order. Be sure that -r works with -n. 
-- [ ] `15`. Add the option -f to fold upper and lower case together, so that case distinctions are not made during sorting; for example, a and A compare equal. 
-- [ ] `16`. Add the -d (``directory order'') option, which makes comparisons only on letters, numbers and blanks. Make sure it works in conjunction with -f. 
-- [ ] `17`. Add a field-searching capability, so sorting may bee done on fields within lines, each field sorted according to an independent set of options. (The index for this book was sorted with -df for the index category and -n for the page numbers.) 
 - [ ] `18`. Make dcl recover from input errors. 
 - [ ] `19`. Modify undcl so that it does not add redundant parentheses to declarations. 
 - [ ] `20`. Expand dcl to handle declarations with function argument types, qualifiers like const, and so on. 
 
 ## Chapter 6
-- [ ] `1`. Our version of getword does not properly handle underscores, string constants, comments, or preprocessor control lines. Write a better version.
+- [x] `1`. Our version of getword does not properly handle underscores, string constants, comments, or preprocessor control lines. Write a better version.
 - [ ] `2`. Write a program that reads a C program and prints in alphabetical order each group of variable names that are identical in the first 6 characters, but different somewhere thereafter. Don't count words within strings and comments. Make 6 a parameter that can be set from the command line. 
 - [ ] `3`. Write a cross-referencer that prints a list of all words in a document, and for each word, a list of the line numbers on which it occurs. Remove noise words like `the,` `and,` and so on. 
-- [ ] `4`. Write a program that prints the distinct words in its input sorted into decreasing order of frequency of occurrence. Precede each word by its count. 
-- [ ] `5`. Write a function undef that will remove a name and definition from the table maintained by lookup and install. 
-- [ ] `6`. Implement a simple version of the #define processor (i.e., no arguments) suitable for use with C programs, based on the routines of this section. You may also find getch and ungetch helpful. 
+
+- [x] `4`. Write a program that prints the distinct words in its input sorted into decreasing order of frequency of occurrence. Precede each word by its count. 
+- [x] `5`. Write a function undef that will remove a name and definition from the table maintained by lookup and install. 
+- [x] `6`. Implement a simple version of the #define processor (i.e., no arguments) suitable for use with C programs, based on the routines of this section. You may also find getch and ungetch helpful. 
 
 ## Chapter 7
 - [x] `1`. Write a program that converts upper case to lower or lower case to upper, depending on the name it is invoked with, as found in `argv[0]`. 
@@ -80,17 +80,29 @@ All done.
 - [x] `9`. Functions like isupper can be implemented to save space or to save time. Explore both possibilities.
 
 
-
-
-
-
 ## Chapter 8
 - [-] `1`. Rewrite the program cat from Chapter 7 using read, write, open, and close instead of their standard library equivalents. Perform experiments to determine the relative speeds of the two versions. 
-- [ ] `2`. Rewrite fopen and _fillbuf with fields instead of explicit bit operations. Compare code size and execution speed. 
-- [ ] `3`. Design and write _flushbuf, fflush, and fclose. 
+- [-] `2`. Rewrite fopen and _fillbuf with fields instead of explicit bit operations. Compare code size and execution speed. 
+- [-] `3`. Design and write _flushbuf, fflush, and fclose. 
 - [ ] `4`. The standard library function `int fseek(FILE *fp, long offset, int origin)` is identical to lseek except that fp is a file pointer instead of a file descriptor and return value is an int status, not a position. Write fseek. Make sure that your fseek coordinates properly with the buffering done for the other functions of the library. 
 - [ ] `5`. Modify the fsize program to print the other information contained in the inode entry.
 - [-] `6`. The standard library function calloc(n,size) returns a pointer to n objects of size size, with the storage initialized to zero. Write calloc, by calling malloc or by modifying it. 
 - [ ] `7`. malloc accepts a size request without checking its plausibility; free believes that the block it is asked to free contains a valid size field. Improve these routines so they make more pains with error checking. 
 - [ ] `8`. Write a routine bfree(p,n) that will free any arbitrary block p of n characters into the free list maintained by malloc and free. By using bfree, a user can add a static or external array to the free list at any time. 
+
+
+
+
+## READ MORE
+- `qsort` in `./c5/7.c`
+- `qsort` in `./c5/14.c`
+
+
+
+## Explain Again
+- [ ] goto
+- [ ] register
+
+### Me part
+- alloc, malloc
 
