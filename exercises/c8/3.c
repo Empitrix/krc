@@ -1,5 +1,11 @@
+/*
+Design and write _flushbuf, fflush, and fclose.
+*/
+
 #include <fcntl.h>
 #include <stdarg.h>
+// The functions available from stdio.h are implemented here.
+//#include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
 #include <unistd.h>
@@ -28,16 +34,11 @@ extern FILE _iob[OPEN_MAX];
 #define stderr (&_iob[2])
 
 enum _flags {
-	_READ = 01,
-	/* file open for reading */ /* binary 1 */
-	_WRITE = 02,
-	/* file open for writing */ /* binary 10 */
-	_UNBUF = 03,
-	/* file is unbuffered */ /* binary 11 */
-	_EOF = 010,
-	/* EOF has occurred on this file */ /* binary 1000 */
-	_ERR = 020,
-	/* error occurred on this file */ /* binary 10000*/
+	_READ = 01,  /* file open for reading */
+	_WRITE = 02, /* file open for writing */
+	_UNBUF = 03, /* file is unbuffered */
+	_EOF = 010,  /* EOF has occurred on this file */
+	_ERR = 020,  /* error occurred on this file */
 };
 
 int _fillbuf(FILE *);
@@ -65,8 +66,6 @@ FILE *fopen(char *name, char *mode) {
 
 	if (*mode != 'r' && *mode != 'w' && *mode != 'a')
 		return NULL;
-
-	/* Bit operation */
 
 	for (fp = _iob; fp < _iob + OPEN_MAX; fp++)
 		if ((fp->flag & (_READ | _WRITE)) == 0)
@@ -99,12 +98,8 @@ FILE *fopen(char *name, char *mode) {
 int _fillbuf(FILE *fp) {
 	int bufsize;
 
-	/* this is a bit operation */
-
 	if ((fp->flag & (_READ | _EOF | _ERR)) != _READ)
 		return EOF;
-
-	/* this is a bit operation */
 
 	bufsize = (fp->flag & _UNBUF) ? 1 : BUFSIZ;
 
@@ -114,8 +109,6 @@ int _fillbuf(FILE *fp) {
 
 	fp->ptr = fp->base;
 	fp->cnt = read(fp->fd, fp->ptr, bufsize);
-
-	/* these are bit operations */
 
 	if (--fp->cnt < 0) {
 		if (fp->cnt == -1)
@@ -162,6 +155,7 @@ int _flushbuf(int c, FILE *f) {
 		bufsize = 1;
 	} else {
 		/* buffered write */
+		/* TODO: Senthil Kumaran - What should be the f-> ptr?*/
 		/*if ( c!= EOF) {
 				f->ptr = uc;
 		} */
@@ -184,9 +178,54 @@ FILE _iob[OPEN_MAX] = {/* stdin, stdout, stderr */
 		{0, (char *) 0, (char *) 0, _WRITE,		  1},
 		{0, (char *) 0, (char *) 0, _WRITE | _UNBUF, 2}};
 
+/* fflush */
+int fflush(FILE *f) {
+	int retval;
+	int i;
+	FILE *fp;
+
+	retval = 0;
+
+	if (f == NULL) {
+		/* flush all the output streams */
+
+		for (fp = _iob; fp < _iob + OPEN_MAX; fp++)
+			if ((fp->flag & _WRITE) == 0 && fflush(fp) == -1)
+				retval = -1;
+	} else {
+		if ((f->flag & _WRITE) == 0)
+			return -1;
+		_flushbuf(EOF, f);
+		if (f->flag & _ERR)
+			retval = -1;
+	}
+	return retval;
+}
+
+/* fclose */
+
+int fclose(FILE *f) {
+	int fd;
+
+	if (f == NULL)
+		return -1;
+
+	fd = f->fd;
+	fflush(f);
+	f->cnt = 0;
+	f->ptr = NULL;
+	if (f->base != NULL)
+		free(f->base);
+	f->base = NULL;
+	f->flag = 0;
+	f->fd = -1;
+	return close(fd);
+}
+
 // int main(int argc, char *argv[]) {
 // 	int c;
 // 	while ((c = getchar()) != 'x') {
 // 		putchar(c);
 // 	}
 // }
+

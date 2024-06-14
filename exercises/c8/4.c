@@ -1,5 +1,17 @@
+/* The standard library function
+`int fseek(FILE *fp, long offset, int origin)` is identical
+to lseek except that fp is a file pointer instead of a file
+descriptor and return value is an int status, not a position.
+Write fseek. Make sure that your fseek coordinates properly
+with the buffering done for the other functions of the library.
+*/
+
+
+
 #include <fcntl.h>
 #include <stdarg.h>
+// The functions available from stdio.h are implemented here.
+//#include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
 #include <unistd.h>
@@ -28,20 +40,14 @@ extern FILE _iob[OPEN_MAX];
 #define stderr (&_iob[2])
 
 enum _flags {
-	_READ = 01,
-	/* file open for reading */ /* binary 1 */
-	_WRITE = 02,
-	/* file open for writing */ /* binary 10 */
-	_UNBUF = 03,
-	/* file is unbuffered */ /* binary 11 */
-	_EOF = 010,
-	/* EOF has occurred on this file */ /* binary 1000 */
-	_ERR = 020,
-	/* error occurred on this file */ /* binary 10000*/
+	_READ = 01,  /* file open for reading */
+	_WRITE = 02, /* file open for writing */
+	_UNBUF = 03, /* file is unbuffered */
+	_EOF = 010,  /* EOF has occurred on this file */
+	_ERR = 020,  /* error occurred on this file */
 };
 
 int _fillbuf(FILE *);
-
 int _flushbuf(int, FILE *);
 
 #define feof(p) (((p)->flag & _EOF) != 0)
@@ -65,8 +71,6 @@ FILE *fopen(char *name, char *mode) {
 
 	if (*mode != 'r' && *mode != 'w' && *mode != 'a')
 		return NULL;
-
-	/* Bit operation */
 
 	for (fp = _iob; fp < _iob + OPEN_MAX; fp++)
 		if ((fp->flag & (_READ | _WRITE)) == 0)
@@ -99,23 +103,17 @@ FILE *fopen(char *name, char *mode) {
 int _fillbuf(FILE *fp) {
 	int bufsize;
 
-	/* this is a bit operation */
-
 	if ((fp->flag & (_READ | _EOF | _ERR)) != _READ)
 		return EOF;
-
-	/* this is a bit operation */
 
 	bufsize = (fp->flag & _UNBUF) ? 1 : BUFSIZ;
 
 	if (fp->base == NULL) /* no buffer yet */
-		if ((fp->base = (char *) malloc(bufsize)) == NULL)
+		if ((fp->base = (char *)malloc(bufsize)) == NULL)
 			return EOF; /* can't get buffer */
 
 	fp->ptr = fp->base;
 	fp->cnt = read(fp->fd, fp->ptr, bufsize);
-
-	/* these are bit operations */
 
 	if (--fp->cnt < 0) {
 		if (fp->cnt == -1)
@@ -126,7 +124,7 @@ int _fillbuf(FILE *fp) {
 		return EOF;
 	}
 
-	return (unsigned char) *fp->ptr++;
+	return (unsigned char)*fp->ptr++;
 }
 
 /* _flushbuf: flush a buffer */
@@ -162,10 +160,11 @@ int _flushbuf(int c, FILE *f) {
 		bufsize = 1;
 	} else {
 		/* buffered write */
+		/* TODO: Senthil Kumaran - What should be the f-> ptr?*/
 		/*if ( c!= EOF) {
 				f->ptr = uc;
 		} */
-		bufsize = (int) (f->ptr - f->base);
+		bufsize = (int)(f->ptr - f->base);
 		num_written = write(f->fd, f->base, bufsize);
 		f->ptr = f->base;
 		f->cnt = BUFSIZ - 1;
@@ -180,13 +179,101 @@ int _flushbuf(int c, FILE *f) {
 }
 
 FILE _iob[OPEN_MAX] = {/* stdin, stdout, stderr */
-		{0, (char *) 0, (char *) 0, _READ,		   0},
-		{0, (char *) 0, (char *) 0, _WRITE,		  1},
-		{0, (char *) 0, (char *) 0, _WRITE | _UNBUF, 2}};
+					   {0, (char *)0, (char *)0, _READ, 0},
+					   {0, (char *)0, (char *)0, _WRITE, 1},
+					   {0, (char *)0, (char *)0, _WRITE | _UNBUF, 2}};
 
-// int main(int argc, char *argv[]) {
-// 	int c;
-// 	while ((c = getchar()) != 'x') {
-// 		putchar(c);
-// 	}
-// }
+/* fflush */
+int fflush(FILE *f) {
+	int retval;
+	int i;
+	FILE *fp;
+
+	retval = 0;
+
+	if (f == NULL) {
+		/* flush all the output streams */
+
+		for (fp = _iob; fp < _iob + OPEN_MAX; fp++)
+			if ((fp->flag & _WRITE) == 0 && fflush(fp) == -1)
+				retval = -1;
+	} else {
+		if ((f->flag & _WRITE) == 0)
+			return -1;
+		_flushbuf(EOF, f);
+		if (f->flag & _ERR)
+			retval = -1;
+	}
+	return retval;
+}
+
+/* fclose */
+
+int fclose(FILE *f) {
+	int fd;
+
+	if (f == NULL)
+		return -1;
+
+	fd = f->fd;
+	fflush(f);
+	f->cnt = 0;
+	f->ptr = NULL;
+	if (f->base != NULL)
+		free(f->base);
+	f->base = NULL;
+	f->flag = 0;
+	f->fd = -1;
+	return close(fd);
+}
+
+/* fseek */
+/* http://clc-wiki.net/wiki/K%26R2_solutions:Chapter_8:Exercise_4 */
+#define SEEK_SET 0
+#define SEEK_CUR 1
+#define SEEK_END 2
+
+int fseek(FILE *f, long offset, int whence) {
+	int result;
+
+	if ((f->flag & _UNBUF) == 0 && f->base != NULL) {
+		/* deal with buffering */
+		if (f->flag & _WRITE) {
+			if (fflush(f))
+				return EOF;
+		} else if (f->flag & _READ) {
+			/* Reading so thrash buffer, do some housekeeping first
+			 */
+			if (whence == SEEK_CUR) {
+				/* fix offset so that it's from the last
+				 * character the user read (not the last character that was
+				 * actually read)
+				 */
+				if (offset >= 0 && offset <= f->cnt) {
+					/* easy shortcut */
+					f->cnt -= offset;
+					f->ptr += offset;
+					f->flag &= ~_EOF; /* If successful, clear EOF */
+					return 0;
+				} else {
+					offset -= f->cnt;
+				}
+			}
+			f->cnt = 0;
+			f->ptr = f->base;
+		}
+	}
+
+	result = (lseek(f->fd, offset, whence) < 0);
+
+	if (result == 0)
+		f->flag &= ~_EOF; /* If successful, clear EOF */
+	return result;
+}
+
+int main(int argc, char *argv[]) {
+	int c;
+	while ((c = getchar()) != 'x') {
+		putchar(c);
+	}
+}
